@@ -1,7 +1,18 @@
-import Image from "next/image";
-import { Form } from "./components/Input";
+"use client";
 
+import { Form } from "./components/Input";
+import { handleTodosRequest } from "@/services/todoServices";
+import { useEffect } from "react";
 export default function Home() {
+  useEffect(() => {
+    const fetchTodos = async () => {
+      const response = await handleTodosRequest({ method: "GET" });
+      setTodos(response);
+    };
+
+    fetchTodos();
+  }, []);
+
   return (
     <div className="section min-h-screen">
       <div className="container flex flex-col w-full items-center justify-center ">
